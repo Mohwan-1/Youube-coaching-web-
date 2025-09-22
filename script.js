@@ -36,6 +36,59 @@ function updateCurrentCount() {
     }
 }
 
+// Hide Spline watermark function
+function hideSplineWatermark() {
+    const splineViewer = document.querySelector('spline-viewer');
+    if (splineViewer) {
+        // Hide elements that might contain watermark
+        const observer = new MutationObserver(function(mutations) {
+            mutations.forEach(function(mutation) {
+                if (mutation.type === 'childList') {
+                    // Find and hide watermark elements
+                    const watermarkElements = splineViewer.querySelectorAll('*');
+                    watermarkElements.forEach(function(element) {
+                        const text = element.textContent || '';
+                        const href = element.href || '';
+
+                        if (text.toLowerCase().includes('built with spline') ||
+                            text.toLowerCase().includes('spline') ||
+                            href.includes('spline.design')) {
+                            element.style.display = 'none';
+                            element.style.visibility = 'hidden';
+                            element.style.opacity = '0';
+                        }
+
+                        // Hide elements positioned at bottom
+                        const style = window.getComputedStyle(element);
+                        if (style.position === 'absolute' || style.position === 'fixed') {
+                            if (style.bottom && parseInt(style.bottom) < 50) {
+                                element.style.display = 'none';
+                            }
+                        }
+                    });
+                }
+            });
+        });
+
+        observer.observe(splineViewer, {
+            childList: true,
+            subtree: true
+        });
+
+        // Initial cleanup
+        setTimeout(() => {
+            const allElements = splineViewer.querySelectorAll('*');
+            allElements.forEach(function(element) {
+                const text = element.textContent || '';
+                if (text.toLowerCase().includes('built with spline') ||
+                    text.toLowerCase().includes('spline')) {
+                    element.style.display = 'none';
+                }
+            });
+        }, 1000);
+    }
+}
+
 // Spotlight effect for hero section
 function initSpotlightEffect() {
     const heroContainer = document.querySelector('.spline-hero-container');
@@ -62,6 +115,13 @@ function initSpotlightEffect() {
 document.addEventListener('DOMContentLoaded', function() {
     // Initialize spotlight effect
     initSpotlightEffect();
+
+    // Hide Spline watermark
+    hideSplineWatermark();
+
+    // Additional watermark hiding with delay
+    setTimeout(hideSplineWatermark, 2000);
+    setTimeout(hideSplineWatermark, 5000);
 
     // Start countdown
     updateCountdown();

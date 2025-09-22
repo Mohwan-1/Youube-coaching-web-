@@ -197,27 +197,60 @@ spline-viewer {
     display: block;
 }
 
-/* Hide Spline watermark */
-spline-viewer::part(logo),
-spline-viewer .spline-watermark,
-spline-viewer [class*="watermark"],
-spline-viewer [class*="logo"],
-spline-viewer [class*="spline"] {
+/* Hide Spline watermark - Enhanced */
+spline-viewer *[class*="logo"],
+spline-viewer *[class*="watermark"],
+spline-viewer *[class*="spline"],
+spline-viewer *[class*="brand"],
+spline-viewer *[style*="position: absolute"][style*="bottom"],
+spline-viewer *[style*="position: fixed"][style*="bottom"],
+spline-viewer div[style*="bottom: 16px"],
+spline-viewer div[style*="bottom:16px"],
+spline-viewer a[href*="spline"],
+spline-viewer a[target="_blank"] {
     display: none !important;
     visibility: hidden !important;
     opacity: 0 !important;
+    width: 0 !important;
+    height: 0 !important;
+    overflow: hidden !important;
 }
 
-/* Additional watermark hiding */
+/* Hide by text content */
+spline-viewer *:has-text("built with spline"),
+spline-viewer *:has-text("Built with Spline"),
+spline-viewer *:has-text("BUILT WITH SPLINE") {
+    display: none !important;
+}
+
+/* CSS selector for text content */
+spline-viewer * {
+    font-size: 0 !important;
+}
+
+/* Additional watermark hiding overlay */
 .spline-scene-wrapper::after {
     content: '';
     position: absolute;
     bottom: 0;
     right: 0;
-    width: 150px;
-    height: 30px;
+    width: 200px;
+    height: 50px;
     background: #000000;
-    z-index: 1000;
+    z-index: 999999;
+    pointer-events: none;
+}
+
+/* Alternative overlay for left bottom */
+.spline-scene-wrapper::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 200px;
+    height: 50px;
+    background: #000000;
+    z-index: 999999;
     pointer-events: none;
 }
 
