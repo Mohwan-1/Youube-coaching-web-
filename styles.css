@@ -197,6 +197,30 @@ spline-viewer {
     display: block;
 }
 
+/* Hide Spline watermark */
+spline-viewer::part(logo),
+spline-viewer .spline-watermark,
+spline-viewer [class*="watermark"],
+spline-viewer [class*="logo"],
+spline-viewer [class*="spline"] {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+}
+
+/* Additional watermark hiding */
+.spline-scene-wrapper::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 150px;
+    height: 30px;
+    background: #000000;
+    z-index: 1000;
+    pointer-events: none;
+}
+
 .hero-cta {
     display: flex;
     flex-direction: column;
