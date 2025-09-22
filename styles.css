@@ -81,14 +81,30 @@ body {
     border-bottom: 1px solid rgba(107, 70, 193, 0.2);
 }
 
+.header-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-4);
+}
+
 .logo {
     display: flex;
-    justify-content: center;
+    align-items: center;
 }
 
 .logo-img {
     height: 40px;
     width: auto;
+}
+
+.header-title {
+    font-size: var(--text-3xl);
+    font-weight: 600;
+    color: var(--primary-white);
+    margin: 0;
+    white-space: nowrap;
+    line-height: 1;
 }
 
 /* Hero Section */
@@ -872,6 +888,16 @@ html {
 
 /* Spline Hero Responsive Styles */
 @media (max-width: 768px) {
+    .header-content {
+        flex-direction: column;
+        gap: var(--space-2);
+    }
+
+    .header-title {
+        font-size: var(--text-2xl);
+        text-align: center;
+    }
+
     .hero-content-wrapper {
         flex-direction: column;
         height: auto;
@@ -899,6 +925,11 @@ html {
 }
 
 @media (max-width: 480px) {
+    .header-title {
+        font-size: var(--text-lg);
+        white-space: normal;
+    }
+
     .spline-hero-title {
         font-size: var(--text-2xl);
     }
